@@ -14,6 +14,7 @@ A plant monitoring system based on Arduino.
 2. Every feature/hardware unit is given its own sketch folder in order to isolate it from other features, each representing its own functional unit
    1. Allows for separate and isolated testing of each feature
    2. If a feature is properly tested, it will be 'converted' to a library by copying the entire sketch folder into the library directory and moving all its .ino files into an example subdirectory
+   3. Finally, the library gets integrated into the ArduinoMonitorSketch
 
 ## Branching
 1. The master branch always includes a properly tested and executable program
