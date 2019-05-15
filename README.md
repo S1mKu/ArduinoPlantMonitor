@@ -132,3 +132,9 @@ Use library 'LedControl'!
       <td>I</td>
    </tr>
 </table>
+
+## MULTIPLEXER WITH ARDUINO
+There are many different opportunity: 
+1.    8 channels multiplexer CD4051BE
+2.    8 pin shift register 74HC595
+3.    8-channel analog multiplexer/demultiplexer 74HC4051
