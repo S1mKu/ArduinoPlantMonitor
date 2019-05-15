@@ -58,6 +58,15 @@ gradient/graph (eval. and displayed on mobile device/laptop/pc)
 > 12. PIR Motion Sensor (generic)
 
 ## Module/Hardware unit pinout
+### Soil Moisture Sensor for Arduino (ME110)
+| Moisture Sensor pin | Arduino pin |
+|---|---|
+| + | 5V |
+| - | GND |
+| S |  (any analog output pin) |
+
+0~3.0V when 5V power supply; 0~1.7V when 3.3V power supply
+
 ### LCD 1602 Module
 | LCD pin | Arduino Mega pin |
 |---|---|
