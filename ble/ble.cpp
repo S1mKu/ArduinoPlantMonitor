@@ -17,23 +17,11 @@ int sendBlueToothCommand(char command[])
   blueToothSerial->print(command);
   delay(200);
 
-  if (ble_recv(buffer, BUFFER_LEN, 200) <= 0) return -1;
+  if (ble_recv(buffer, BUFFER_LEN) <= 0) return -1;
 
   Serial.print("recv: ");
   Serial.print(buffer);
   Serial.println("");
-  return 0;
-}
-
-//used for compare two string, return 0 if one equals to each other
-int strcmp(char *a, char *b)
-{
-  unsigned int ptr = 0;
-  while (a[ptr] != '\0')
-  {
-    if (a[ptr] != b[ptr]) return -1;
-    ptr++;
-  }
   return 0;
 }
 
@@ -91,7 +79,7 @@ int setupBlueToothConnection()
   sendBlueToothCommand("AT+PINB123451");    //set BLE password
   sendBlueToothCommand("AT+SCAN0");         //set module visible
   sendBlueToothCommand("AT+NOTI1");         //enable connect notifications
-  //sendBlueToothCommand("AT+NOTP1");       //enable address notifications
+  sendBlueToothCommand("AT+NOTP1");       //enable address notifications
   sendBlueToothCommand("AT+PIO01");         //enable key function
 #if MASTER
   sendBlueToothCommand("AT+ROLB1");         //set to master mode
@@ -114,6 +102,8 @@ int ble_recv(char *buffer, unsigned int buffer_len, unsigned int timeout = STD_R
   unsigned int time = 0;
   unsigned char i;
 
+  //Serial.print("STOP");
+
   //waiting for the first character with time out
   i = 0;
   while (1)
@@ -129,6 +119,9 @@ int ble_recv(char *buffer, unsigned int buffer_len, unsigned int timeout = STD_R
     if (time > (timeout / 50)) return 0;
   }
 
+  //Serial.println("  -> CONTINUE: ");
+  //delay(200);
+
   //TODO handle buffer overflow -> software serial buffer can only hold up to 64 bytes
 
   //read other characters from uart buffer to string
@@ -142,9 +135,14 @@ int ble_recv(char *buffer, unsigned int buffer_len, unsigned int timeout = STD_R
   return i;
 }
 
-int ble_send(char *msg, unsigned int msg_len)
+//int ble_send(char *msg, unsigned int msg_len)
+//{
+//  blueToothSerial->print(msg, msg_len);
+//}
+
+int ble_send(char msg[])
 {
-  return blueToothSerial->write(msg, msg_len);
+  blueToothSerial->print(msg);
 }
 
 void ble_setup(unsigned int pin_RxD = STD_RxD, unsigned int pin_TxD = STD_TxD)
@@ -166,12 +164,11 @@ bool ble_connected(void)
 {
   int bytes_received = ble_recv(buffer, BUFFER_LEN);
 
-  Serial.print("buffer: ");
-  Serial.print(buffer);
-  Serial.print("\n");
-  
   if (bytes_received > 0 && strstr(buffer, (char *)"CON") != NULL)
   {
+    Serial.print("buffer: ");
+    Serial.print(buffer);
+    Serial.print("\n");
     return true;
   }
 

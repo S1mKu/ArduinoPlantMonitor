@@ -8,7 +8,12 @@ void setup(void)
 
 void loop(void)
 {
+  Serial.println("going to sleep");
+  delay(200);
+
   int interrupt_cause = enter_sleep_mode();
+
+  Serial.println("woke up again");
 
   if (interrupt_cause == 0)
     Serial.println("EXTERNAL INTERRUPT ON PIN 2");

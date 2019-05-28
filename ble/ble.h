@@ -30,7 +30,8 @@ extern char buffer[BUFFER_LEN];
 */
 int ble_recv(char *buffer, unsigned int buffer_len, unsigned int timeout = STD_RCV_TIMEOUT);
 
-int ble_send(char *msg, unsigned int msg_len);
+//int ble_send(char *msg, unsigned int msg_len);
+int ble_send(char msg[]);
 
 void ble_setup(unsigned int pin_RxD = STD_RxD, unsigned int pin_TxD = STD_TxD);
 

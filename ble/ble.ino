@@ -13,8 +13,16 @@ unsigned int i = 1;
 
 void loop(void)
 {
+  //ble_send("AT+RESET");
+  
   if (ble_connected())
   {
+
+    Serial.println("###### CONNECTED ######");
+
+    //char msg[] = "testnachricht";
+  
+    ble_send(msg, strlen(msg));
 
     int msg_len = ble_recv(buffer, BUFFER_LEN); // using default timeout of 1 second
 

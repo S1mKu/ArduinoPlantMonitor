@@ -81,6 +81,8 @@ void configure_sleep_mode(unsigned int sleep_duration, unsigned int interrupt_pi
 
      TODO: implement wdt setup
   */
+
+  configure_wdt();
 }
 
 /**
