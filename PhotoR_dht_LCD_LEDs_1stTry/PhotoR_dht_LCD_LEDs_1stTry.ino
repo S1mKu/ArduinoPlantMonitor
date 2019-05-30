@@ -1,4 +1,4 @@
-
+//angeschlossen mit 330Ohm
 // Variables
 
 void setup() {
@@ -26,18 +26,33 @@ void loop() {
   LCDprintInt(getHumidity());
   LCDprintString("%");
   
-  LEDMatrixLoop();
+  //
+  
+  LEDMatrixSmileLoop();
   
   LCDclear();
-  LCDsetCursor(0,0);
-
-  if (getPhotocellValue() > 800) {
-    LCDprintString("Enough light :)");
-  } else {
+  
+  if (getPhotocellValue() > 800 && moistureSensorValue() > 400) {
+    LCDsetCursor(0,0);
+    LCDprintString("Enough light and ");
+    LCDsetCursor(0,1);
+    LCDprintString("I don't need water ;)");
+    LEDMatrixSmileLoop();
+  } else if (getPhotocellValue() < 800 && moistureSensorValue() > 400 ) {
+    LCDsetCursor(0,0);
     LCDprintString("Too dark :(");
+    LEDMatrixSadLoop();
+  } else if (getPhotocellValue() > 800 && moistureSensorValue() < 400 ) {
+    LCDsetCursor(0,0);
+    LCDprintString("I need water :(");
+    LEDMatrixSadLoop();
+  } else {
+    LCDsetCursor(0,0);
+    LCDprintString("U don't love me :(");
+    LEDMatrixSadLoop(); 
   }
 
-  LEDMatrixLoop();
+  LEDMatrixSmileLoop();
   
   //Serial.println(getPhotocellValue());
   /*

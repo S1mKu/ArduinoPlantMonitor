@@ -1,7 +1,7 @@
 #include <LiquidCrystal.h>
 
 //check the pins
-LiquidCrystal lcd(0, 1, 2, 3, 4, 5);
+LiquidCrystal lcd(42, 41, 40, 39, 38, 37); //(rs, en, d4, d5, d6, d7);
 
 void lcdBegin() {
   lcd.begin(16, 2);
