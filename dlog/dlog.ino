@@ -78,5 +78,5 @@ void loop()
     Serial.println(DATA_LOG_ENTRY.moisture);
     Serial.println(DATA_LOG_ENTRY.temperature);
 
-    delay(60000);
+    delay(1000);
 }
