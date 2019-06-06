@@ -1,10 +1,5 @@
 #include "SensorDataLog.h"
-<<<<<<< Updated upstream
-#include "<sd.h>"
-#include "<SPI.h>"
-=======
 #include "SDUtils.h"
->>>>>>> Stashed changes
 
 StatusLogEntry STATUS_LOG_ENTRY;
 DataLogEntry DATA_LOG_ENTRY;
@@ -212,7 +207,7 @@ int SensorDataLogger::begin(int cs_pin = DEFAULT_CS_PIN)
     else //no state entry yet
     {
         Serial.println("----");
-        if (writeEntry(1, LOG_ENTRY STATUS_LOG_ENTRY) != LOG_OK)
+        if (appendEntry(LOG_ENTRY STATUS_LOG_ENTRY) != LOG_OK)
         {
             return -8;
         }
@@ -297,6 +292,7 @@ int SensorDataLogger::log(DataLogEntry entry)
         STATUS_LOG_ENTRY.cur_log_file_prefix++;
 
         Serial.println("LOG::log 3");
+        Serial.println(log_header.n_entries);
 
         if (updateEntry(1, LOG_ENTRY STATUS_LOG_ENTRY) != LOG_OK)
         {
