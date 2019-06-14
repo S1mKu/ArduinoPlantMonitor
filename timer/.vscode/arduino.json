@@ -1,6 +1,0 @@
-{
-    "board": "arduino:avr:mega",
-    "configuration": "cpu=atmega2560",
-    "sketch": "timer.ino",
-    "port": "/dev/ttyACM0"
-}

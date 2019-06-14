@@ -1,6 +1,0 @@
-{
-    "sketch": "rtc_ds3231_alarm_every_5m.ino",
-    "port": "COM1",
-    "board": "arduino:avr:mega",
-    "configuration": "cpu=atmega2560"
-}
