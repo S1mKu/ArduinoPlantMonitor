@@ -11,7 +11,7 @@ void setup()
 
     delay(200);
 
-    if ((err_no = LOG.begin()) != 0)
+    if ((err_no = LOG.begin(sizeof(DATA_LOG_ENTRY))) != 0)
     {
         Serial.print("LOG.begin(...) - ERROR ");
         Serial.println(err_no);
@@ -27,7 +27,7 @@ void setup()
     DATA_LOG_ENTRY.moisture = 7;
     DATA_LOG_ENTRY.temperature = 8;
 
-    if ((err_no = LOG.log(DATA_LOG_ENTRY)) != 0)
+    if ((err_no = LOG.log(LOG_ENTRY DATA_LOG_ENTRY)) != 0)
     {
         Serial.print("LOG.log(...) - ERROR ");
         Serial.println(err_no);
@@ -46,7 +46,7 @@ void loop()
     DATA_LOG_ENTRY.moisture = 3;
     DATA_LOG_ENTRY.temperature = 4;
 
-    int err_code = LOG.select_last(&DATA_LOG_ENTRY);
+    int err_code = LOG.select_last(LOG_ENTRY DATA_LOG_ENTRY);
     Serial.println(err_code);
 
     Serial.println(DATA_LOG_ENTRY.brightness);
@@ -60,7 +60,7 @@ void loop()
     data_entry.moisture = 7;
     data_entry.temperature = 6;
 
-    err_code = LOG.log(data_entry);
+    err_code = LOG.log(LOG_ENTRY data_entry);
     Serial.println(err_code);
 
     DATA_LOG_ENTRY.brightness = 0;
@@ -68,7 +68,7 @@ void loop()
     DATA_LOG_ENTRY.moisture = 0;
     DATA_LOG_ENTRY.temperature = 0;
 
-    err_code = LOG.select_last(&DATA_LOG_ENTRY);
+    err_code = LOG.select_last(LOG_ENTRY DATA_LOG_ENTRY);
     Serial.println(err_code);
 
     Serial.println("-------------------------------");
