@@ -1,7 +1,0 @@
-{
-    "board": "arduino:avr:mega",
-    "configuration": "cpu=atmega2560",
-    "port": "/dev/ttyACM0",
-    "programmer": "Arduino as ISP",
-    "sketch": "wsrcycle.ino"
-}

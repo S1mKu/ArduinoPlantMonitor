@@ -4,17 +4,6 @@
             "name": "Linux",
             "includePath": [
                 "/opt/arduino-1.8.9/tools/**",
-<<<<<<< Updated upstream
-                "/opt/arduino-1.8.9/hardware/arduino/avr/**"
-            ],
-            "forcedInclude": [
-                "/opt/arduino-1.8.9/hardware/arduino/avr/cores/arduino/Arduino.h"
-            ],
-            "intelliSenseMode": "gcc-x64",
-            "compilerPath": "/usr/bin/gcc",
-            "cStandard": "c11",
-            "cppStandard": "c++17"
-=======
                 "/opt/arduino-1.8.9/hardware/arduino/avr/**",
                 "${workspaceFolder}/../libraries/**",
                 "${workspaceFolder}/**"
@@ -36,7 +25,6 @@
             "forcedInclude": [
                 "/opt/arduino-1.8.9/hardware/arduino/avr/cores/arduino/Arduino.h"
             ]
->>>>>>> Stashed changes
         }
     ],
     "version": 4
