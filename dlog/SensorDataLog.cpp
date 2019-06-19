@@ -1,6 +1,10 @@
 #include "SensorDataLog.h"
+<<<<<<< Updated upstream
 #include "<sd.h>"
 #include "<SPI.h>"
+=======
+#include "SDUtils.h"
+>>>>>>> Stashed changes
 
 StatusLogEntry STATUS_LOG_ENTRY;
 DataLogEntry DATA_LOG_ENTRY;
