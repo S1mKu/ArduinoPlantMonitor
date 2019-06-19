@@ -4,16 +4,18 @@
 StatusLogEntry STATUS_LOG_ENTRY;
 DataLogEntry DATA_LOG_ENTRY;
 
-int _cs_pin;
+uint16_t _cs_pin;
 LogType _active_log_type = NONE;
 
 static File _log;
 
 char logfile_name[30] = "\0";
-LogEntry log_entry;
-unsigned long log_entry_size;
+// LogEntry log_entry;
+uint32_t _log_entry_size;
+uint32_t _data_log_entry_size;
+uint32_t _max_log_entries;
 
-static void print_it(unsigned long index, const byte *entry_ptr, LogType type)
+static void print_it(unsigned long index, const uint8_t *entry_ptr, LogType type)
 {
     if (index == 0) //HEADER
     {
@@ -61,7 +63,7 @@ static void print_it(unsigned long index, const byte *entry_ptr, LogType type)
     }
 }
 
-int SensorDataLogger::_retrieve_log(LogType log)
+int16_t SensorDataLogger::_retrieve_log(LogType log)
 {
     if (log == NONE || log == _active_log_type)
     {
@@ -83,8 +85,8 @@ int SensorDataLogger::_retrieve_log(LogType log)
     {
         _active_log_type = STATUS_LOG;
         strcat(logfile_name, STATUS_LOG_FILE);
-        log_entry = LOG_ENTRY STATUS_LOG_ENTRY;
-        log_entry_size = sizeof(STATUS_LOG_ENTRY);
+        // log_entry = LOG_ENTRY STATUS_LOG_ENTRY;
+        _log_entry_size = sizeof(STATUS_LOG_ENTRY);
 
         // Serial.print("LOG::_retrieve_log - STATUS_LOG_FILE ");
         // Serial.println(logfile_name);
@@ -107,8 +109,8 @@ int SensorDataLogger::_retrieve_log(LogType log)
 
         sprintf(logfile_name, "%s%d%s", "D", STATUS_LOG_ENTRY.cur_log_file_prefix, DEFAULT_LOG_FILE_SUFFIX);
 
-        log_entry = LOG_ENTRY DATA_LOG_ENTRY;
-        log_entry_size = sizeof(DATA_LOG_ENTRY);
+        // log_entry = LOG_ENTRY DATA_LOG_ENTRY;
+        _log_entry_size = _data_log_entry_size;
 
         //Serial.print("LOG::_retrieve_log - DATA_LOG_FILE ");
         //Serial.println(logfile_name);
@@ -129,7 +131,7 @@ int SensorDataLogger::_retrieve_log(LogType log)
     delay(200);
 
     Serial.println(logfile_name);
-    Serial.println(log_entry_size);
+    Serial.println(_log_entry_size);
 
     Serial.print("Opened file ");
     Serial.println(_log.name());
@@ -155,7 +157,7 @@ int SensorDataLogger::_retrieve_log(LogType log)
         else // log does not exist yet
         {
             //Serial.println("LOG::_retrieve_log - trying to create log");
-            if (createLog(DEFAULT_LOG_HEADER_INDEX, DEFAULT_MAX_LOG_ENTRIES, log_entry_size) != LOG_OK)
+            if (createLog(DEFAULT_LOG_HEADER_INDEX, _max_log_entries, _log_entry_size) != LOG_OK)
             {
                 //Serial.println("LOG::_retrieve_log :: ERROR 3");
                 return -4;
@@ -177,9 +179,11 @@ int SensorDataLogger::_retrieve_log(LogType log)
     return 0;
 }
 
-int SensorDataLogger::begin(int cs_pin = DEFAULT_CS_PIN)
+int16_t SensorDataLogger::begin(uint32_t entry_size, uint32_t max_log_entries = DEFAULT_MAX_LOG_ENTRIES, uint16_t cs_pin = DEFAULT_CS_PIN)
 {
-    int err_no = 0;
+    _data_log_entry_size = entry_size;
+    _max_log_entries = max_log_entries;
+    uint32_t err_no = 0;
     _cs_pin = cs_pin;
 
     Serial.println("LOG::begin");
@@ -219,7 +223,7 @@ int SensorDataLogger::begin(int cs_pin = DEFAULT_CS_PIN)
     return 0;
 }
 
-int SensorDataLogger::write(unsigned long index, const byte *entry_ptr, unsigned int entry_len)
+int16_t SensorDataLogger::write(unsigned long index, const uint8_t *entry_ptr, uint16_t entry_len)
 {
     Serial.println("LOG::write() - entered ");
     delay(200);
@@ -235,7 +239,11 @@ int SensorDataLogger::write(unsigned long index, const byte *entry_ptr, unsigned
     {
         return -1;
     }
-    int len = _log.write(entry_ptr, entry_len);
+
+    Serial.print("########## Writing to position: ");
+    Serial.println(_log.position());
+
+    int16_t len = _log.write(entry_ptr, entry_len);
     _log.flush();
 
     Serial.print("########## Endsize: ");
@@ -247,7 +255,7 @@ int SensorDataLogger::write(unsigned long index, const byte *entry_ptr, unsigned
     return len;
 }
 
-int SensorDataLogger::read(unsigned long index, byte *entry_ptr, unsigned int entry_len)
+int16_t SensorDataLogger::read(unsigned long index, uint8_t *entry_ptr, uint16_t entry_len)
 {
     Serial.println("LOG::read() - entered");
 
@@ -255,7 +263,7 @@ int SensorDataLogger::read(unsigned long index, byte *entry_ptr, unsigned int en
     {
         return -1;
     }
-    int res = _log.read(entry_ptr, entry_len);
+    int16_t res = _log.read(entry_ptr, entry_len);
     _log.flush();
 
     Serial.print(" -----> ");
@@ -267,9 +275,9 @@ int SensorDataLogger::read(unsigned long index, byte *entry_ptr, unsigned int en
     return res;
 }
 
-int SensorDataLogger::log(DataLogEntry entry)
+int16_t SensorDataLogger::log(const LogEntry entry)
 {
-    int err_no = 0;
+    int16_t err_no = 0;
 
     Serial.println("LOG::log 1");
 
@@ -280,7 +288,9 @@ int SensorDataLogger::log(DataLogEntry entry)
     }
     delay(200);
 
-    if (appendEntry(LOG_ENTRY entry) == LOG_FULL)
+    print_it(1, entry, _active_log_type);
+
+    if (appendEntry(entry) == LOG_FULL)
     {
         Serial.println("LOG::log 2");
         if ((err_no = _retrieve_log(STATUS_LOG)) != 0)
@@ -309,9 +319,9 @@ int SensorDataLogger::log(DataLogEntry entry)
     return 0;
 }
 
-int SensorDataLogger::select_last(DataLogEntry *entry)
+int16_t SensorDataLogger::select_last(LogEntry entry)
 {
-    // int err_no = 0;
+    // int16_t err_no = 0;
 
     // Serial.println("LOG::select_last - entered");
 
@@ -324,7 +334,7 @@ int SensorDataLogger::select_last(DataLogEntry *entry)
     // delay(200);
     // return 0;
 
-    int err_no = 0;
+    int16_t err_no = 0;
 
     Serial.println("LOG::select_last - entered");
 
@@ -339,7 +349,7 @@ int SensorDataLogger::select_last(DataLogEntry *entry)
     //     return -14;
     // }
 
-    if (readEntry(log_header.n_entries, (byte *)(void *)(entry)) != LOG_OK)
+    if (readEntry(log_header.n_entries, entry) != LOG_OK)
     {
         return -14;
     }
@@ -348,9 +358,9 @@ int SensorDataLogger::select_last(DataLogEntry *entry)
     return 0;
 }
 
-int SensorDataLogger::select(unsigned int index, DataLogEntry entry_buffer[], unsigned int entry_buffer_len)
+int16_t SensorDataLogger::select(uint16_t index, LogEntry entry_buffer[], uint16_t entry_buffer_len)
 {
-    int err_no = 0;
+    int16_t err_no = 0;
 
     Serial.println("LOG::select - entered");
 
@@ -365,10 +375,10 @@ int SensorDataLogger::select(unsigned int index, DataLogEntry entry_buffer[], un
         return -13;
     }
 
-    int i;
+    int16_t i;
     for (i = 0; i < entry_buffer_len; i++)
     {
-        if (readEntry(index + i, LOG_ENTRY(entry_buffer[i])) != LOG_OK)
+        if (readEntry(index + i, entry_buffer[i]) != LOG_OK)
         {
             return -14;
         }
@@ -376,6 +386,11 @@ int SensorDataLogger::select(unsigned int index, DataLogEntry entry_buffer[], un
 
     delay(200);
     return 0;
+}
+
+int16_t SensorDataLogger::count_entries(void)
+{
+    return countEntries();
 }
 
 SensorDataLogger LOG = SensorDataLogger();
