@@ -1,0 +1,23 @@
+{
+    // Controls if the editor should automatically format the line after typing
+    "beautify.onSave": true,
+    "editor.formatOnSave": true,
+    // You can auto format any files based on the file extensions type.
+    "beautify.JSfiles": [
+        "js",
+        "json",
+        "jsbeautifyrc",
+        "jshintrc",
+        "ts"
+    ],
+    "editor.detectIndentation": false,
+    "editor.formatOnType": true,
+    "editor.foldingStrategy": "indentation",
+    "files.associations": {
+        "typeinfo": "cpp"
+    },
+    // "C_Cpp.clang_format_style": "Visual Studio",
+    // "C_Cpp.default.compileCommands": null,
+    // "C_Cpp.default.compilerPath": null,
+    // "C_Cpp.default.browse.path": null
+}
