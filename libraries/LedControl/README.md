@@ -15,7 +15,11 @@ The lastest binary version of the Library is always available from the
 
 Install
 -------
+<<<<<<< HEAD
 The library can be installed using the [standard Arduino library install procedure](http://arduino.cc/en/Guide/Libraries)  
+=======
+The library can be installed using the [standard Arduino library install procedure](http://arduino.cc/en/Guide/Libraries#.UwxndHX5PtY)  
+>>>>>>> Added PowerSaveDriver and LcdControl lib
 
 
 
