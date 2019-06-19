@@ -1,6 +1,0 @@
-{
-    "sketch": "ReadWrite.ino",
-    "port": "/dev/ttyACM1",
-    "board": "arduino:avr:mega",
-    "configuration": "cpu=atmega2560"
-}

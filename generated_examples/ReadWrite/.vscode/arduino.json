@@ -1,5 +1,0 @@
-{
-    "sketch": "ReadWrite.ino",
-    "port": "/dev/ttyACM0",
-    "board": "arduino:avr:uno"
-}
