@@ -22,10 +22,6 @@ public:
     void set_feedback(int16_t temperature, int16_t humidity);
     void display(uint8_t text[], uint16_t text_len, uint16_t cursor_line, uint16_t cursor_col, bool clear = false);
 
-}
-
-//check the pins
-LiquidCrystal lcd(42, 41, 40, 39, 38, 37); //(rs, en, d4, d5, d6, d7);
-
+};
 
 #endif
