@@ -1,0 +1,33 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/opt/arduino-1.8.9/tools/**",
+                "/opt/arduino-1.8.9/hardware/arduino/avr/**",
+                "${workspaceFolder}/../libraries/**",
+                "/usr/lib/avr/include/**",
+                "${workspaceFolder}/**"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": false,
+                "path": [
+                    "/opt/arduino-1.8.9/tools/**",
+                    "/opt/arduino-1.8.9/hardware/arduino/avr/**",
+                    "/usr/lib/avr/include/**",
+                    "${workspaceFolder}/../libraries/**",
+                    "${workspaceFolder}/**"
+                ]
+            },
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64",
+            "forcedInclude": [
+                "/opt/arduino-1.8.9/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ]
+        }
+    ],
+    "version": 4
+}
