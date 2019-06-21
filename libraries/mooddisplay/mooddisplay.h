@@ -3,6 +3,7 @@
 
 #include "LedControl.h"
 #include <stdint.h>
+#include <Arduino.h>
 
 class MoodDisplay : protected LedControl
 {
