@@ -6,7 +6,6 @@
                 "/opt/arduino-1.8.9/tools/**",
                 "/opt/arduino-1.8.9/hardware/arduino/avr/**",
                 "${workspaceFolder}/../libraries/**",
-                "/usr/lib/avr/include/**",
                 "${workspaceFolder}/**"
             ],
             "browse": {
@@ -14,7 +13,6 @@
                 "path": [
                     "/opt/arduino-1.8.9/tools/**",
                     "/opt/arduino-1.8.9/hardware/arduino/avr/**",
-                    "/usr/lib/avr/include/**",
                     "${workspaceFolder}/../libraries/**",
                     "${workspaceFolder}/**"
                 ]

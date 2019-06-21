@@ -1,5 +1,6 @@
 #include "SensorDataLog.h"
-#include "SDUtils.h"
+#include <SPI.h>
+#include <SD.h>
 
 StatusLogEntry STATUS_LOG_ENTRY;
 DataLogEntry DATA_LOG_ENTRY;
