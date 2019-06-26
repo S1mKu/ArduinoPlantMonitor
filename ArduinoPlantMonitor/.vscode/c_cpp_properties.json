@@ -4,6 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "/opt/arduino-1.8.9/tools/**",
+                "/opt/arduino-1.8.9/libraries/**",
                 "/opt/arduino-1.8.9/hardware/arduino/avr/**",
                 "${workspaceFolder}/../libraries/**",
                 "/usr/lib/avr/include/**",
@@ -13,6 +14,7 @@
                 "limitSymbolsToIncludedHeaders": false,
                 "path": [
                     "/opt/arduino-1.8.9/tools/**",
+                    "/opt/arduino-1.8.9/libraries/**",
                     "/opt/arduino-1.8.9/hardware/arduino/avr/**",
                     "/usr/lib/avr/include/**",
                     "${workspaceFolder}/../libraries/**",

@@ -131,6 +131,8 @@ int16_t SensorDataLogger::_retrieve_log(LogType log)
 
     delay(200);
 
+    Serial.println(SD.exists(logfile_name));
+
     Serial.println(logfile_name);
     Serial.println(_log_entry_size);
 
@@ -224,13 +226,15 @@ int16_t SensorDataLogger::begin(uint32_t entry_size, uint32_t max_log_entries = 
     return 0;
 }
 
-int16_t SensorDataLogger::write(unsigned long index, const uint8_t *entry_ptr, uint16_t entry_len)
+int16_t SensorDataLogger::write(uint32_t index, const uint8_t *entry_ptr, uint16_t entry_len)
 {
     Serial.println("LOG::write() - entered ");
     delay(200);
 
-    print_it(index, entry_ptr, _active_log_type);
+    // print_it(index, entry_ptr, _active_log_type);
 
+    Serial.print("########## entry_len: ");
+    Serial.println(entry_len);
     Serial.print("########## Startsize: ");
     Serial.println(_log.size());
     Serial.print("########## Startposition: ");
@@ -258,7 +262,8 @@ int16_t SensorDataLogger::write(unsigned long index, const uint8_t *entry_ptr, u
 
 int16_t SensorDataLogger::read(unsigned long index, uint8_t *entry_ptr, uint16_t entry_len)
 {
-    Serial.println("LOG::read() - entered");
+    Serial.print("LOG::read() - entered ");
+    Serial.println(entry_len);
 
     if (!_log.seek(index))
     {
@@ -270,7 +275,7 @@ int16_t SensorDataLogger::read(unsigned long index, uint8_t *entry_ptr, uint16_t
     Serial.print(" -----> ");
     Serial.println(_active_log_type);
 
-    print_it(index, entry_ptr, _active_log_type);
+    // print_it(index, entry_ptr, _active_log_type);
 
     delay(200);
     return res;
@@ -289,7 +294,7 @@ int16_t SensorDataLogger::log(const LogEntry entry)
     }
     delay(200);
 
-    print_it(1, entry, _active_log_type);
+    // print_it(1, entry, _active_log_type);
 
     if (appendEntry(entry) == LOG_FULL)
     {

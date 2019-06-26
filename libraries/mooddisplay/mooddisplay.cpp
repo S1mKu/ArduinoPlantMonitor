@@ -8,6 +8,9 @@ void MoodDisplay::setup()
     setIntensity(1, 5);
     clearDisplay(0); // Clear Displays
     clearDisplay(1);
+
+    setIntensity(0, 0);
+    setIntensity(1, 0);
 }
 
 void MoodDisplay::set_open_mouth()
@@ -46,7 +49,7 @@ void MoodDisplay::set_sad_face()
     }
 }
 
-void MoodDisplay::smile()
+void MoodDisplay::play_smile_sequence()
 {
     uint16_t counter = 0;
     while (counter < 5)
@@ -61,7 +64,7 @@ void MoodDisplay::smile()
     }
 }
 
-void MoodDisplay::cry()
+void MoodDisplay::play_cry_sequence()
 {
     uint16_t counter = 0;
     while (counter < 10)

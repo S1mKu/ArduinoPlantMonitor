@@ -7,7 +7,7 @@ uint32_t first_entry_index;
 
 void BaseDataLogger::writeHead()
 {
-    Serial.println("\n########## header ##########");
+    Serial.println("\n########## write header ##########");
     Serial.print("entry_size ");
     Serial.println(log_header.entry_size);
     Serial.print("flag ");
@@ -20,12 +20,27 @@ void BaseDataLogger::writeHead()
 
     write(log_header_index, LOG_ENTRY log_header, (uint32_t)sizeof(LogHeader));
 
-    Serial.println("########## header ##########\n");
+    Serial.println("########## write header ##########\n");
 }
 
 void BaseDataLogger::readHead()
 {
-    read(log_header_index, LOG_ENTRY log_header, (uint32_t)sizeof(LogHeader));
+    read(log_header_index, LOG_ENTRY log_header, sizeof(LogHeader));
+
+    Serial.println("\n########## read header ##########");
+    Serial.print("sizeof ");
+    Serial.println(sizeof(LogHeader));
+    Serial.print("entry_size ");
+    Serial.println(log_header.entry_size);
+    Serial.print("flag ");
+    Serial.println(log_header.flag);
+    Serial.print("log_size ");
+    Serial.println(log_header.log_size);
+    Serial.print("n_entries ");
+    Serial.println(log_header.n_entries);
+    Serial.println(log_header_index);
+
+    Serial.println("########## read header ##########\n");
 }
 
 LogStatus BaseDataLogger::createLog(uint32_t header_index, uint32_t tablesize, uint32_t entrysize)
@@ -36,6 +51,19 @@ LogStatus BaseDataLogger::createLog(uint32_t header_index, uint32_t tablesize, u
     log_header.n_entries = 0;
     log_header.entry_size = entrysize;
     log_header.log_size = tablesize;
+
+    Serial.println("\n########## createLog header ##########");
+    Serial.print("entry_size ");
+    Serial.println(log_header.entry_size);
+    Serial.print("flag ");
+    Serial.println(log_header.flag);
+    Serial.print("log_size ");
+    Serial.println(log_header.log_size);
+    Serial.print("n_entries ");
+    Serial.println(log_header.n_entries);
+    Serial.println(log_header_index);
+
+    Serial.println("########## createLog header ##########\n");
 
     writeHead();
     if (log_header.flag == LOG_FLAG)
@@ -58,6 +86,9 @@ LogStatus BaseDataLogger::openLog(uint32_t header_index)
 
 LogStatus BaseDataLogger::writeEntry(uint32_t entry_no, const LogEntry entry)
 {
+    Serial.print("writeEntry: ");
+    Serial.println(log_header.entry_size);
+
     write(first_entry_index + ((entry_no - 1) * log_header.entry_size), entry, log_header.entry_size);
     return LOG_OK;
 }
@@ -118,6 +149,8 @@ LogStatus BaseDataLogger::updateEntry(uint32_t entry_no, LogEntry entry)
 
 LogStatus BaseDataLogger::appendEntry(LogEntry entry)
 {
+    Serial.println("appendEntry");
+
     if (log_header.n_entries + 1 > maxEntries())
         return LOG_FULL;
     log_header.n_entries++;

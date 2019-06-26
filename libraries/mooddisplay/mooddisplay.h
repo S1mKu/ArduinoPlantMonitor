@@ -78,14 +78,16 @@ private:
             B01000000};
 
     void set_open_mouth();
-    void set_smile();
-    void set_sad_face();
+    // void set_smile();
+    // void set_sad_face();
 
 public:
     MoodDisplay(uint16_t dataPin, uint16_t clkPin, uint16_t csPin) : LedControl(dataPin, clkPin, csPin, 2){};
     void setup();
-    void smile();
-    void cry();
+    void play_smile_sequence();
+    void play_cry_sequence();
+    void set_smile();
+    void set_sad_face();
 };
 
 #endif

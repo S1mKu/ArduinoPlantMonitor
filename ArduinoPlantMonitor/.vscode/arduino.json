@@ -1,5 +1,6 @@
 {
     "board": "arduino:avr:mega",
     "configuration": "cpu=atmega2560",
-    "sketch": "ArduinoPlantMonitor.ino"
+    "sketch": "ArduinoPlantMonitor.ino",
+    "port": "/dev/ttyACM0"
 }
