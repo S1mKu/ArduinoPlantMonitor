@@ -81,6 +81,8 @@ private:
     // void set_smile();
     // void set_sad_face();
 
+    uint8_t _mood = 0;
+
 public:
     MoodDisplay(uint16_t dataPin, uint16_t clkPin, uint16_t csPin) : LedControl(dataPin, clkPin, csPin, 2){};
     void setup();
@@ -88,6 +90,7 @@ public:
     void play_cry_sequence();
     void set_smile();
     void set_sad_face();
+    uint8_t get_mood();
 };
 
 #endif

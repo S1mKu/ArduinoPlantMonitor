@@ -4,17 +4,15 @@ void MoodDisplay::setup()
 {
     shutdown(0, false); // Wake up displays
     shutdown(1, false);
-    setIntensity(0, 5); // Set intensity levels
-    setIntensity(1, 5);
+    setIntensity(0, 0); // Set intensity levels
+    setIntensity(1, 0);
     clearDisplay(0); // Clear Displays
     clearDisplay(1);
-
-    setIntensity(0, 0);
-    setIntensity(1, 0);
 }
 
 void MoodDisplay::set_open_mouth()
 {
+    _mood = 1;
     for (uint16_t i = 0; i < 8; i++)
     {
         setRow(0, i, mouthArray1[i]);
@@ -27,6 +25,7 @@ void MoodDisplay::set_open_mouth()
 
 void MoodDisplay::set_smile()
 {
+    _mood = 1;
     for (uint16_t i = 0; i < 8; i++)
     {
         setRow(0, i, smileArray1[i]);
@@ -39,6 +38,7 @@ void MoodDisplay::set_smile()
 
 void MoodDisplay::set_sad_face()
 {
+    _mood = 2;
     for (uint16_t i = 0; i < 8; i++)
     {
         setRow(0, i, sadArray1[i]);
@@ -73,4 +73,9 @@ void MoodDisplay::play_cry_sequence()
         delay(delayTime);
         counter++;
     }
+}
+
+uint8_t MoodDisplay::get_mood()
+{
+    return _mood;
 }

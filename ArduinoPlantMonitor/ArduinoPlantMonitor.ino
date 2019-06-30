@@ -134,11 +134,17 @@ void read_n_store_sensor_data()
 
     if (moisture <= 100)
     {
-        mood.set_sad_face();
+        if (mood.get_mood() != 2)
+        {
+            mood.set_sad_face();
+        }
     }
     else
     {
-        mood.set_smile();
+        if (mood.get_mood() != 1)
+        {
+            mood.set_smile();
+        }
     }
 
     struct SensorDataLogEntry entry;
