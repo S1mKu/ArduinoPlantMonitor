@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "cstdint": "cpp"
+        "cstdint": "cpp",
+        "initializer_list": "cpp",
+        "string_view": "cpp"
     }
 }
