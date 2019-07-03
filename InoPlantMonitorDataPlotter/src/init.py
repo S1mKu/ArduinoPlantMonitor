@@ -114,7 +114,7 @@ if __name__ == "__main__":
         plt.legend(loc=2, ncol=2)
         
         # Add titles
-        plt.title("A (bad) Spaghetti plot", loc='left', fontsize=12, fontweight=0, color='orange')
+        plt.title("Sensor Data Plot", loc='left', fontsize=12, fontweight=0, color='orange')
         plt.xlabel("Time")
         plt.ylabel("Score")
 

@@ -114,6 +114,7 @@ void read_n_store_sensor_data()
     /*
     Store the previously read sensor data.
      */
+    sensor_data.moisture = moisture;
     sensor_data.brightness = brightness;
     sensor_data.humidity = hum;
     sensor_data.temperature = temp;
